@@ -12,7 +12,7 @@ const initialItem = {
 }
 
 const UpdateMovie = (props) => {
-    const [movies, setMovies] = useState(initialItem)
+    const [updateMovie, setUpdateMovie] = useState(initialItem)
     const { id } = useParams();
     const { push } = useHistory();
 
@@ -21,7 +21,7 @@ const UpdateMovie = (props) => {
         .get(`http://localhost:5000/api/movies/${id}`)
         .then((res) => {
             console.log( { res } );
-            setMovies(res.data)
+            setUpdateMovie(res.data)
 
         })
         .catch((err) => console.log(err))
@@ -29,8 +29,8 @@ const UpdateMovie = (props) => {
 
     const changeHandler = (event) => {
         event.persist()
-        setMovies({
-            ...movies,
+        setUpdateMovie({
+            ...updateMovie,
             [event.target.name] : event.target.value
         })
  
@@ -39,11 +39,13 @@ const UpdateMovie = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         axios
-        .put(`http://localhost:5000/api/movies/${id}`, movies)
+        .put(`http://localhost:5000/api/movies/${id}`, updateMovie)
         .then((res) => {
             console.log(res.data)
-            setMovies(res.data)
+            setUpdateMovie(res.data)
+
             // props.setMovieList(res.data)
+            // push(`/movies/${id}`)
             push(`/movies/${id}`)
         })
         .catch((err) => console.log(err))
@@ -58,7 +60,7 @@ const UpdateMovie = (props) => {
                   name="title"
                   onChange={changeHandler}
                   placeholder="Title"
-                  value={movies.title}
+                  value={updateMovie.title}
                 />
         
                 <input
@@ -66,7 +68,7 @@ const UpdateMovie = (props) => {
                   name="director"
                   onChange={changeHandler}
                   placeholder="Director"
-                  value={movies.director}
+                  value={updateMovie.director}
                 />
         
                 <input
@@ -74,7 +76,7 @@ const UpdateMovie = (props) => {
                   name="metascore"
                   onChange={changeHandler}
                   placeholder="Metascore"
-                  value={movies.metascore}
+                  value={updateMovie.metascore}
                 />
 
                 {/* <input
