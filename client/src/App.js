@@ -14,13 +14,14 @@ const App = () => {
   const getMovieList = () => {
     axios
       .get("http://localhost:5000/api/movies")
-      .then(res => setMovieList(res.data))
+      .then((res) => {
+        setMovieList(res.data)
+      console.log("MOVIE LIST: ", res.data)})
       .catch(err => console.log(err.response));
   };
 
-  const addToSavedList = movie => {
+  const addToSavedList = movie => 
     setSavedList([...savedList, movie]);
-  };
 
   useEffect(() => {
     getMovieList();

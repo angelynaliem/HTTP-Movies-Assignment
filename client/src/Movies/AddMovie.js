@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-const AddMovie = () => {
+const AddMovie = (props) => {
 
     const history = useHistory()
 
@@ -24,33 +24,70 @@ const AddMovie = () => {
         })
     }
 
-    const addNewMovie = (movie) => {
+    // const addNewMovie = (movie) => {
+
+    //     axios
+    //     .post("http://localhost:5000/api/movies", movie)
+    //     .then((res) => {
+    //         console.log("New Movie added ", res.data)
+    //         setNewMovie({
+    //             ...newMovie,
+    //             movie
+    //         })
+    //     })
+    //     .catch((err) => {
+    //         console.log("New Movie failed: ", err.message)
+    //     })
+
+    // }
+
+    // const submitForm = (e) => {
+    //     e.preventDefault()
+    //     console.log("form submitted")
+    //     addNewMovie(newMovie)
+    //     history.push("/movies")
+    //     setNewMovie(startingForm)
+    // }
+
+
+    const submitForm = event => {
+
+        event.preventDefault()
+
+        const movieWithStarsArray = { 
+            ...newMovie, 
+            stars: newMovie.stars.split(", ") 
+        }
+
+        console.log("STARS ARRAY: ", movieWithStarsArray)
+    
         axios
-        .post("http://localhost:5000/api/movies", movie)
+        .post("http://localhost:5000/api/movies", movieWithStarsArray)
         .then((res) => {
-            console.log("New Movie added ", res.data)
-            setNewMovie({
-                ...newMovie,
-                movie
-            })
-        })
-        .catch((err) => {
-            console.log("New Movie failed: ", err.message)
-        })
+        console.log("RES: ", res.data)
+        setNewMovie(res.data)
+            //   history.push("/movies");
+        });
+      };
 
-    }
+    //   const handleSubmit = (event) => {
+    //     event.preventDefault()
+    //     const newUpdateMovie = {
+    //       ...updateMovie,
+    //       stars: updateMovie.stars.split(",")
+    //     }
+    //     axios
+    //     .put(`http://localhost:5000/api/movies/${id}`, newUpdateMovie)
+    //     .then((res) => {
+    //         console.log(res.data)
+    //         setUpdateMovie(res.data)
 
-    const submitForm = (e) => {
-        e.preventDefault()
-        console.log("form submitted")
-        addNewMovie(newMovie)
-        history.push("/movies")
-        // setNewMovie(startingForm)
-    }
-
-    // useEffect(() => {
-
-    // }, [newMovie])
+    //         // props.setMovieList(res.data)
+    //         // push(`/movies/${id}`)
+    //         push(`/movies/${id}`)
+    //     })
+    //     .catch((err) => console.log(err))
+    // }
 
     return (
                     <div>

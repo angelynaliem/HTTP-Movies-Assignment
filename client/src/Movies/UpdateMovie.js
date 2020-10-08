@@ -38,8 +38,12 @@ const UpdateMovie = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        const newUpdateMovie = {
+          ...updateMovie,
+          stars: updateMovie.stars.split(",")
+        }
         axios
-        .put(`http://localhost:5000/api/movies/${id}`, updateMovie)
+        .put(`http://localhost:5000/api/movies/${id}`, newUpdateMovie)
         .then((res) => {
             console.log(res.data)
             setUpdateMovie(res.data)
@@ -79,13 +83,13 @@ const UpdateMovie = (props) => {
                   value={updateMovie.metascore}
                 />
 
-                {/* <input
+                <input
                   type="text"
                   name="stars"
                   onChange={changeHandler}
                   placeholder="Stars"
-                  value={movies.stars}
-                /> */}
+                  value={updateMovie.stars}
+                />
          
                 <button>Update Movie</button>
               </form>
