@@ -7,7 +7,7 @@ const initialItem = {
     id: "",
     title: "",
     director: "",
-    metasore: "",
+    metascore: "",
     stars: [],
 }
 
@@ -40,17 +40,20 @@ const UpdateMovie = (props) => {
         event.preventDefault()
         const newUpdateMovie = {
           ...updateMovie,
-          stars: updateMovie.stars.split(",")
+          title: updateMovie.title,
+          director: updateMovie.director,
+          metascore: updateMovie.metascore,
+          stars: updateMovie.stars.split(", ")
         }
         axios
         .put(`http://localhost:5000/api/movies/${id}`, newUpdateMovie)
         .then((res) => {
             console.log(res.data)
-            setUpdateMovie(res.data)
+            // setUpdateMovie(res.data)
 
-            // props.setMovieList(res.data)
+            props.getMovieList()
             // push(`/movies/${id}`)
-            push(`/movies/${id}`)
+            push("/movies")
         })
         .catch((err) => console.log(err))
     }

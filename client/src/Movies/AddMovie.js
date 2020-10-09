@@ -65,8 +65,8 @@ const AddMovie = (props) => {
         .post("http://localhost:5000/api/movies", movieWithStarsArray)
         .then((res) => {
         console.log("RES: ", res.data)
-        setNewMovie(res.data)
-            //   history.push("/movies");
+        props.getMovieList()
+        history.push("/movies");
         });
       };
 
